@@ -24,8 +24,7 @@
             <category term="Linux" scheme="http://example.com/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/" />
             <category term="Linux" scheme="http://example.com/tags/Linux/" />
             <pubDate>Sun, 10 Apr 2022 17:55:31 +0800</pubDate>
-            <description><![CDATA[ &lt;p&gt;&amp;lt;meta name=&amp;quot;referrer&amp;quot; content=&amp;quot;no-referrer&amp;quot;/&amp;gt;&lt;/p&gt;
-&lt;h1 id=&#34;linux学习&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#linux学习&#34;&gt;#&lt;/a&gt; linux 学习&lt;/h1&gt;
+            <description><![CDATA[ &lt;h1 id=&#34;linux学习&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#linux学习&#34;&gt;#&lt;/a&gt; linux 学习&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly93d3cuY25ibG9ncy5jb20vZG9uZ3llOTUvcC8xMjQzNDQ0OC5odG1s&#34;&gt;Linux 实战 100 讲&lt;/span&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -38,7 +37,7 @@
 &lt;li&gt;若是 &lt;strong&gt;b&lt;/strong&gt; 则表示为装置文件里面的可供储存的接口设备 (可随机存取装置)；&lt;/li&gt;
 &lt;li&gt;若是 &lt;strong&gt;c&lt;/strong&gt; 则表示为装置文件里面的串行端口设备，例如键盘、鼠标 (一次性读取装置)。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img data-src=&#34;https://gitee.com/difenddf/my-pic-bed/raw/master/img/file-llls22.jpg&#34; alt=&#34;img&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://s1.ax1x.com/2022/04/10/LA4UhR.png&#34; alt=&#34;LA4UhR.png&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;文件的权限字符为： &lt;strong&gt;-rwxrwxrwx&lt;/strong&gt; ， 这九个权限是三个三个一组的！其中，我们可以使用数字来代表各个权限，各权限的分数对照表如下：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;r:4&lt;/li&gt;
