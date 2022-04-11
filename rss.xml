@@ -10,18 +10,39 @@
         </author>
         <description>努力学习、生活的博客</description>
         <language>zh-CN</language>
-        <pubDate>Sun, 10 Apr 2022 17:55:31 +0800</pubDate>
-        <lastBuildDate>Sun, 10 Apr 2022 17:55:31 +0800</lastBuildDate>
+        <pubDate>Mon, 11 Apr 2022 15:57:48 +0800</pubDate>
+        <lastBuildDate>Mon, 11 Apr 2022 15:57:48 +0800</lastBuildDate>
         <category term="计算机" />
         <category term="后端" />
         <category term="大数据" />
         <item>
-            <guid isPermalink="true">http://example.com/2022/04/10/linux%E5%AD%A6%E4%B9%A01/</guid>
+            <guid isPermalink="true">http://example.com/2022/04/11/big-data/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%8D%A0%E4%BD%8D%E6%96%87%E4%BB%B6/</guid>
+            <title>大数据占位文件</title>
+            <link>http://example.com/2022/04/11/big-data/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%8D%A0%E4%BD%8D%E6%96%87%E4%BB%B6/</link>
+            <category term="大数据" scheme="http://example.com/categories/big-data/" />
+            <category term="大数据" scheme="http://example.com/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" />
+            <pubDate>Mon, 11 Apr 2022 15:57:48 +0800</pubDate>
+            <description><![CDATA[ &lt;h1 id=&#34;大数据占位文件&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#大数据占位文件&#34;&gt;#&lt;/a&gt; 大数据占位文件&lt;/h1&gt;
+&lt;p&gt;这是一个大数据占位文件&lt;/p&gt;
+ ]]></description>
+        </item>
+        <item>
+            <guid isPermalink="true">http://example.com/2022/04/11/Java/Java/</guid>
+            <title>Java占位文件</title>
+            <link>http://example.com/2022/04/11/Java/Java/</link>
+            <category term="Java" scheme="http://example.com/categories/Java/" />
+            <category term="Java" scheme="http://example.com/tags/Java/" />
+            <pubDate>Mon, 11 Apr 2022 15:53:43 +0800</pubDate>
+            <description><![CDATA[ &lt;h1 id=&#34;java占位文件&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#java占位文件&#34;&gt;#&lt;/a&gt; Java 占位文件&lt;/h1&gt;
+&lt;p&gt;这是一个 Java 占位文件&lt;/p&gt;
+ ]]></description>
+        </item>
+        <item>
+            <guid isPermalink="true">http://example.com/2022/04/10/computer-science/linux%E5%AD%A6%E4%B9%A01/</guid>
             <title>linux学习1</title>
-            <link>http://example.com/2022/04/10/linux%E5%AD%A6%E4%B9%A01/</link>
-            <category term="计算机基础" scheme="http://example.com/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" />
-            <category term="操作系统" scheme="http://example.com/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" />
-            <category term="Linux" scheme="http://example.com/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/" />
+            <link>http://example.com/2022/04/10/computer-science/linux%E5%AD%A6%E4%B9%A01/</link>
+            <category term="计算机基础" scheme="http://example.com/categories/computer-science/" />
+            <category term="Linux" scheme="http://example.com/categories/computer-science/Linux/" />
             <category term="Linux" scheme="http://example.com/tags/Linux/" />
             <pubDate>Sun, 10 Apr 2022 17:55:31 +0800</pubDate>
             <description><![CDATA[ &lt;h1 id=&#34;linux学习&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#linux学习&#34;&gt;#&lt;/a&gt; linux 学习&lt;/h1&gt;
@@ -105,9 +126,10 @@
 &lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;newgrp 应用组名&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;eg: newgrp &lt;span class=&#34;token function&#34;&gt;docker&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt; ]]></description>
         </item>
         <item>
-            <guid isPermalink="true">http://example.com/2022/04/10/%E6%88%91%E8%AF%95%E8%AF%95/</guid>
+            <guid isPermalink="true">http://example.com/2022/04/10/life/%E6%88%91%E8%AF%95%E8%AF%95/</guid>
             <title>我试试</title>
-            <link>http://example.com/2022/04/10/%E6%88%91%E8%AF%95%E8%AF%95/</link>
+            <link>http://example.com/2022/04/10/life/%E6%88%91%E8%AF%95%E8%AF%95/</link>
+            <category term="生活杂谈" scheme="http://example.com/categories/life/" />
             <pubDate>Sun, 10 Apr 2022 11:11:20 +0800</pubDate>
             <description><![CDATA[ &lt;h2 id=&#34;测试一下呢&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#测试一下呢&#34;&gt;#&lt;/a&gt; 测试一下呢&lt;/h2&gt;
 &lt;p&gt;四间房 ISO 放假色&lt;/p&gt;
