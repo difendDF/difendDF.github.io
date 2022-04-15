@@ -80,6 +80,30 @@
 &lt;p&gt;之前我对 Zookeeper 的了解仅限于在了解其他组件的时候总是会提到它，比如：在看 Nacos 注册中心的时候，就会提到 Zookeeper 也可以做注册中心；在看配置中心的时候，也有人提到 Zookeeper 可以做配置中心；在了解 Redis 的过程中，会有人说 Zookeeper 和 Redis 一样都可以实现分布式锁；甚至在我看 clickhouse 的时候，书中都跟我说 clickhouse 的集群是依赖于 zookeeper 的...... 好家伙，你这无处不在啊！那么 Zookeeper 到底是什么？&lt;/p&gt;
 &lt;p&gt;Zookeeper 为分布式应用&lt;strong&gt;提供高效且可靠的分布式协调服务&lt;/strong&gt;，主要用来解决分布式集群中应用系统的一致性问题，它提供了类似于文件系统的目录节点树方式的数据存储。但是 Zookeeper 并不是专门用来存储数据的，它的作用主要是用来&lt;strong&gt;维护和监控存储数据的状态变化。通过监控这些数据状态的变化，从而可以达到基于数据的集群管理。&lt;/strong&gt;&lt;/p&gt;
 &lt;h2 id=&#34;zookeeper能干什么&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#zookeeper能干什么&#34;&gt;#&lt;/a&gt; Zookeeper 能干什么&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;配置管理
+&lt;ul&gt;
+&lt;li&gt;集群节点可以通过中心源获取启动配置&lt;/li&gt;
+&lt;li&gt;更简单的部署&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;分布式集群管理
+&lt;ul&gt;
+&lt;li&gt;节点加入 / 离开&lt;/li&gt;
+&lt;li&gt;节点的实时状态&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;命名服务，如：DNS&lt;/li&gt;
+&lt;li&gt;分布式同步：如锁、栅栏、队列&lt;/li&gt;
+&lt;li&gt;分布式系统的选主&lt;/li&gt;
+&lt;li&gt;中心化和高可靠的数据注册&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;需要注意的点&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#需要注意的点&#34;&gt;#&lt;/a&gt; 需要注意的点&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Zookeeper 将&lt;strong&gt;数据全量存储在内存中&lt;/strong&gt;，所以性能很高。由于 Zookeeper 的&lt;strong&gt;所有更新和删除操作都是基于事务的&lt;/strong&gt;，因此 ZooKeeper 在读多写少的应用场景中有性能表现较好，如果写操作频繁，性能会大大下滑。&lt;/li&gt;
+&lt;li&gt;对于来自客户端的每个更新请求，Zookeeper 都会分配一个全局唯一的递增 ID，这个 ID 反映了所有事务请求的先后顺序。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;核心概念&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#核心概念&#34;&gt;#&lt;/a&gt; 核心概念&lt;/h1&gt;
  ]]></description>
         </item>
         <item>
