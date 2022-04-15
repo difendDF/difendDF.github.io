@@ -46,12 +46,12 @@
 &lt;li&gt;启动集群&lt;/li&gt;
 &lt;/ol&gt;
 &lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;docker-compose&lt;/span&gt; up -d&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;这时候我们看一下我们的 docker 容器&lt;br /&gt;
-&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly90dmEyLnNpbmFpbWcuY24vbGFyZ2UvMDA2eUJCRERseThoMWFoZXlxbTQ3ajMyZGswYThtemQuanBn&#34;&gt; &amp;lt;img src=&amp;quot;https://tva2.sinaimg.cn/large/006yBBDDly8h1aheyqm47j32dk0a8mzd.jpg&amp;quot; alt=&amp;quot;006yBBDDly8h1aheyqm47j32dk0a8mzd.jpg&amp;quot; style=&amp;quot;zoom:33%;&amp;quot; /&amp;gt;&lt;/span&gt;&lt;/p&gt;
+&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9pbWd0dS5jb20vaS9MR0l2d1Q=&#34;&gt; &amp;lt;img src=&amp;quot;https://s1.ax1x.com/2022/04/15/LGIvwT.png&amp;quot; alt=&amp;quot;LGIvwT.png&amp;quot; style=&amp;quot;zoom:33%;&amp;quot; /&amp;gt;&lt;/span&gt;&lt;/p&gt;
 &lt;ol start=&#34;4&#34;&gt;
 &lt;li&gt;进去看看 zookeeper 状态&lt;/li&gt;
 &lt;/ol&gt;
 &lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;docker&lt;/span&gt; &lt;span class=&#34;token builtin class-name&#34;&gt;exec&lt;/span&gt; -it zoo1 /bin/sh&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;zkServer.sh status&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;docker&lt;/span&gt; &lt;span class=&#34;token builtin class-name&#34;&gt;exec&lt;/span&gt; -it zoo2 /bin/sh&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;zkServer.sh status&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;docker&lt;/span&gt; &lt;span class=&#34;token builtin class-name&#34;&gt;exec&lt;/span&gt; -it zoo3 /bin/sh&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;zkServer.sh status&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;应该可以看到：&lt;br /&gt;
-&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly90dmE0LnNpbmFpbWcuY24vbGFyZ2UvMDA2eUJCRERseThoMWFoajByOGtsajMxMzgwZm13Z2cuanBn&#34;&gt;&amp;lt;img src=&amp;quot;https://tva4.sinaimg.cn/large/006yBBDDly8h1ahj0r8klj31380fmwgg.jpg&amp;quot; alt=&amp;quot;006yBBDDly8h1ahj0r8klj31380fmwgg.jpg&amp;quot; style=&amp;quot;zoom:33%;&amp;quot; /&amp;gt;&lt;/span&gt;&lt;/p&gt;
+&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9pbWd0dS5jb20vaS9MR29rT3g=&#34;&gt;&amp;lt;img src=&amp;quot;https://s1.ax1x.com/2022/04/15/LGokOx.png&amp;quot; alt=&amp;quot;LGokOx.png&amp;quot; style=&amp;quot;zoom:33%;&amp;quot; /&amp;gt;&lt;/span&gt;&lt;/p&gt;
 </content>
         <category term="Java" scheme="https://sprenedayf.com/categories/Java/" />
         <category term="中间件" scheme="https://sprenedayf.com/categories/Java/%E4%B8%AD%E9%97%B4%E4%BB%B6/" />
@@ -65,10 +65,11 @@
         <id>https://sprenedayf.com/2022/04/15/Java/Zookeeper%E7%9A%84%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%97%851/</id>
         <title>Zookeeper的学习之旅1</title>
         <link rel="alternate" href="https://sprenedayf.com/2022/04/15/Java/Zookeeper%E7%9A%84%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%97%851/"/>
-        <content type="html">&lt;p&gt;最近面试问到分布式，高可用相关的东西，总是回答不上来，很懊恼，所以决定立马上手开始学习！&lt;/p&gt;
-&lt;h1 id=&#34;zookeeper简介&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#zookeeper简介&#34;&gt;#&lt;/a&gt; Zookeeper 简介&lt;/h1&gt;
+        <content type="html">&lt;h1 id=&#34;zookeeper简介&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#zookeeper简介&#34;&gt;#&lt;/a&gt; Zookeeper 简介&lt;/h1&gt;
 &lt;h2 id=&#34;zookeeper是什么&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#zookeeper是什么&#34;&gt;#&lt;/a&gt; Zookeeper 是什么？&lt;/h2&gt;
 &lt;p&gt;之前我对 Zookeeper 的了解仅限于在了解其他组件的时候总是会提到它，比如：在看 Nacos 注册中心的时候，就会提到 Zookeeper 也可以做注册中心；在看配置中心的时候，也有人提到 Zookeeper 可以做配置中心；在了解 Redis 的过程中，会有人说 Zookeeper 和 Redis 一样都可以实现分布式锁；甚至在我看 clickhouse 的时候，书中都跟我说 clickhouse 的集群是依赖于 zookeeper 的...... 好家伙，你这无处不在啊！那么 Zookeeper 到底是什么？&lt;/p&gt;
+&lt;p&gt;Zookeeper 为分布式应用&lt;strong&gt;提供高效且可靠的分布式协调服务&lt;/strong&gt;，主要用来解决分布式集群中应用系统的一致性问题，它提供了类似于文件系统的目录节点树方式的数据存储。但是 Zookeeper 并不是专门用来存储数据的，它的作用主要是用来&lt;strong&gt;维护和监控存储数据的状态变化。通过监控这些数据状态的变化，从而可以达到基于数据的集群管理。&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;zookeeper能干什么&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#zookeeper能干什么&#34;&gt;#&lt;/a&gt; Zookeeper 能干什么&lt;/h2&gt;
 </content>
         <category term="Java" scheme="https://sprenedayf.com/categories/Java/" />
         <category term="中间件" scheme="https://sprenedayf.com/categories/Java/%E4%B8%AD%E9%97%B4%E4%BB%B6/" />
