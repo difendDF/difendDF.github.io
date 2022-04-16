@@ -487,7 +487,7 @@ Zookeeper 采用了名为&lt;strong&gt; ZAB&lt;/strong&gt; 的一致性协议。
         <title>Step.4 主题特殊功能</title>
         <link rel="alternate" href="https://sprenedayf.com/2020/08/13/theme-shoka-doc/special/"/>
         <content type="html">&lt;div class=&#34;note primary&#34;&gt;
-&lt;p&gt;&lt;a href=&#34;/theme-shoka-doc/&#34;&gt;🚀快速开始&lt;/a&gt; - &lt;a href=&#34;/theme-shoka-doc/dependents/&#34;&gt;💌依赖插件&lt;/a&gt; - &lt;a href=&#34;/theme-shoka-doc/config/&#34;&gt;📌基本配置&lt;/a&gt; - &lt;a href=&#34;/theme-shoka-doc/display/&#34;&gt;🌈界面显示&lt;/a&gt; - &lt;a href=&#34;/theme-shoka-doc/special/&#34;&gt;&lt;strong&gt;🦄特殊功能&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;/2020/08/13/theme-shoka-doc/&#34;&gt;🚀快速开始&lt;/a&gt; - &lt;a href=&#34;/2020/08/13/theme-shoka-doc/dependents/&#34;&gt;💌依赖插件&lt;/a&gt; - &lt;a href=&#34;/2020/08/13/theme-shoka-doc/config/&#34;&gt;📌基本配置&lt;/a&gt; - &lt;a href=&#34;/2020/08/13/theme-shoka-doc/display/&#34;&gt;🌈界面显示&lt;/a&gt; - &lt;a href=&#34;/2020/08/13/theme-shoka-doc/special/&#34;&gt;&lt;strong&gt;🦄特殊功能&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&#34;note info&#34;&gt;
 &lt;p&gt;以下介绍可以使用的 markdown 或者标签代码。&lt;br /&gt;
@@ -1049,7 +1049,7 @@ c-16-25.333-24-45-24-59z&#39;/&gt;&lt;/svg&gt;&lt;/span&gt;&lt;/span&gt;&lt;/spa
         <title>Step.3 界面显示</title>
         <link rel="alternate" href="https://sprenedayf.com/2020/08/13/theme-shoka-doc/display/"/>
         <content type="html">&lt;div class=&#34;note primary&#34;&gt;
-&lt;p&gt;&lt;a href=&#34;/theme-shoka-doc/&#34;&gt;🚀快速开始&lt;/a&gt; - &lt;a href=&#34;/theme-shoka-doc/dependents/&#34;&gt;💌依赖插件&lt;/a&gt; - &lt;a href=&#34;/theme-shoka-doc/config/&#34;&gt;📌基本配置&lt;/a&gt; - &lt;a href=&#34;/theme-shoka-doc/display/&#34;&gt;🌈界面显示&lt;/a&gt; - &lt;a href=&#34;/theme-shoka-doc/special/&#34;&gt;&lt;strong&gt;🦄特殊功能&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;/2020/08/13/theme-shoka-doc/&#34;&gt;🚀快速开始&lt;/a&gt; - &lt;a href=&#34;/2020/08/13/theme-shoka-doc/dependents/&#34;&gt;💌依赖插件&lt;/a&gt; - &lt;a href=&#34;/2020/08/13/theme-shoka-doc/config/&#34;&gt;📌基本配置&lt;/a&gt; - &lt;a href=&#34;/2020/08/13/theme-shoka-doc/display/&#34;&gt;🌈界面显示&lt;/a&gt; - &lt;a href=&#34;/2020/08/13/theme-shoka-doc/special/&#34;&gt;&lt;strong&gt;🦄特殊功能&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;h1 id=&#34;首页置顶文章&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#首页置顶文章&#34;&gt;#&lt;/a&gt; 首页置顶文章&lt;/h1&gt;
 &lt;p&gt;在文章的 Front Matter 设置 &lt;code&gt;sticky: true&lt;/code&gt; ，则该文章将显示在首页最上方的 &lt;code&gt;置顶文章&lt;/code&gt; 列。&lt;br /&gt;
@@ -1190,7 +1190,7 @@ c-16-25.333-24-45-24-59z&#39;/&gt;&lt;/svg&gt;&lt;/span&gt;&lt;/span&gt;&lt;/spa
         <title>Step.2 基本配置</title>
         <link rel="alternate" href="https://sprenedayf.com/2020/08/13/theme-shoka-doc/config/"/>
         <content type="html">&lt;div class=&#34;note primary&#34;&gt;
-&lt;p&gt;&lt;a href=&#34;/theme-shoka-doc/&#34;&gt;🚀快速开始&lt;/a&gt; - &lt;a href=&#34;/theme-shoka-doc/dependents/&#34;&gt;💌依赖插件&lt;/a&gt; - &lt;a href=&#34;/theme-shoka-doc/config/&#34;&gt;📌基本配置&lt;/a&gt; - &lt;a href=&#34;/theme-shoka-doc/display/&#34;&gt;🌈界面显示&lt;/a&gt; - &lt;a href=&#34;/theme-shoka-doc/special/&#34;&gt;&lt;strong&gt;🦄特殊功能&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;/2020/08/13/theme-shoka-doc/&#34;&gt;🚀快速开始&lt;/a&gt; - &lt;a href=&#34;/2020/08/13/theme-shoka-doc/dependents/&#34;&gt;💌依赖插件&lt;/a&gt; - &lt;a href=&#34;/2020/08/13/theme-shoka-doc/config/&#34;&gt;📌基本配置&lt;/a&gt; - &lt;a href=&#34;/2020/08/13/theme-shoka-doc/display/&#34;&gt;🌈界面显示&lt;/a&gt; - &lt;a href=&#34;/2020/08/13/theme-shoka-doc/special/&#34;&gt;&lt;strong&gt;🦄特殊功能&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;h1 id=&#34;站点别称&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#站点别称&#34;&gt;#&lt;/a&gt; 站点别称&lt;/h1&gt;
 &lt;figure class=&#34;highlight yml&#34;&gt;&lt;figcaption data-lang=&#34;YAML&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token key atrule&#34;&gt;alternate&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; Yume Shoka&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;这里设置的名称代替 Logo，显示在页面顶部，以及页尾©️处&lt;/p&gt;
@@ -1349,7 +1349,7 @@ PS：jsDelivr 并不是实时更新，重新生成文件后需要耐心等待&lt
         <title>Step.1 依赖插件</title>
         <link rel="alternate" href="https://sprenedayf.com/2020/08/13/theme-shoka-doc/dependents/"/>
         <content type="html">&lt;div class=&#34;note primary&#34;&gt;
-&lt;p&gt;&lt;a href=&#34;/theme-shoka-doc/&#34;&gt;🚀快速开始&lt;/a&gt; - &lt;a href=&#34;/theme-shoka-doc/dependents/&#34;&gt;💌依赖插件&lt;/a&gt; - &lt;a href=&#34;/theme-shoka-doc/config/&#34;&gt;📌基本配置&lt;/a&gt; - &lt;a href=&#34;/theme-shoka-doc/display/&#34;&gt;🌈界面显示&lt;/a&gt; - &lt;a href=&#34;/theme-shoka-doc/special/&#34;&gt;&lt;strong&gt;🦄特殊功能&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;/2020/08/13/theme-shoka-doc/&#34;&gt;🚀快速开始&lt;/a&gt; - &lt;a href=&#34;/2020/08/13/theme-shoka-doc/dependents/&#34;&gt;💌依赖插件&lt;/a&gt; - &lt;a href=&#34;/2020/08/13/theme-shoka-doc/config/&#34;&gt;📌基本配置&lt;/a&gt; - &lt;a href=&#34;/2020/08/13/theme-shoka-doc/display/&#34;&gt;🌈界面显示&lt;/a&gt; - &lt;a href=&#34;/2020/08/13/theme-shoka-doc/special/&#34;&gt;&lt;strong&gt;🦄特殊功能&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&#34;note warning&#34;&gt;
 &lt;p&gt;请务必将 hexo-renderer-multi-markdown-it 升级到最新版，目前为 0.1.5&lt;/p&gt;
