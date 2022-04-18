@@ -26,7 +26,7 @@
             <category term="中间件" scheme="https://sprenedayf.com/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/" />
             <category term="Zookeeper" scheme="https://sprenedayf.com/tags/Zookeeper/" />
             <pubDate>Mon, 18 Apr 2022 10:30:12 +0800</pubDate>
-            <description><![CDATA[ &lt;p&gt;之前介绍了 Zookeeper 的&lt;a href=&#34;/2022/04/18//Java/Zookeeper%E7%9A%84%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%97%851/&#34;&gt;一些知识&lt;/a&gt;，是不是摩拳擦掌想要敲两行代码了～&lt;br /&gt;
+            <description><![CDATA[ &lt;p&gt;之前介绍了 Zookeeper 的&lt;a href=&#34;/2022/04/15/Java/Zookeeper%E7%9A%84%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%97%851/&#34;&gt;一些知识&lt;/a&gt;，是不是摩拳擦掌想要敲两行代码了～&lt;br /&gt;
 &lt;img data-src=&#34;https://tva3.sinaimg.cn/large/006yBBDDly8h1do6bhawdj305g05g3yh.jpg&#34; alt=&#34;&#34; height=&#34;150px&#34; /&gt;&lt;/p&gt;
 &lt;h1 id=&#34;shell命令&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#shell命令&#34;&gt;#&lt;/a&gt; Shell 命令&lt;/h1&gt;
 &lt;h2 id=&#34;查询&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#查询&#34;&gt;#&lt;/a&gt; 查询&lt;/h2&gt;
