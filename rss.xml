@@ -53,8 +53,8 @@
             <category term="Java" scheme="https://sprenedayf.com/categories/Java/" />
             <category term="中间件" scheme="https://sprenedayf.com/categories/Java/%E4%B8%AD%E9%97%B4%E4%BB%B6/" />
             <category term="Kafka" scheme="https://sprenedayf.com/categories/Java/%E4%B8%AD%E9%97%B4%E4%BB%B6/Kafka/" />
-            <category term="中间件" scheme="https://sprenedayf.com/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/" />
             <category term="框架" scheme="https://sprenedayf.com/tags/%E6%A1%86%E6%9E%B6/" />
+            <category term="中间件" scheme="https://sprenedayf.com/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/" />
             <category term="Kafka" scheme="https://sprenedayf.com/tags/Kafka/" />
             <pubDate>Tue, 19 Apr 2022 15:38:06 +0800</pubDate>
             <description><![CDATA[ &lt;h1 id=&#34;消息队列&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#消息队列&#34;&gt;#&lt;/a&gt; 消息队列&lt;/h1&gt;
@@ -139,8 +139,8 @@ topic 下会划分多个 partition，每个 partition 都有自己的 replica，
             <category term="Java" scheme="https://sprenedayf.com/categories/Java/" />
             <category term="中间件" scheme="https://sprenedayf.com/categories/Java/%E4%B8%AD%E9%97%B4%E4%BB%B6/" />
             <category term="Kafka" scheme="https://sprenedayf.com/categories/Java/%E4%B8%AD%E9%97%B4%E4%BB%B6/Kafka/" />
-            <category term="中间件" scheme="https://sprenedayf.com/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/" />
             <category term="框架" scheme="https://sprenedayf.com/tags/%E6%A1%86%E6%9E%B6/" />
+            <category term="中间件" scheme="https://sprenedayf.com/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/" />
             <category term="Kafka" scheme="https://sprenedayf.com/tags/Kafka/" />
             <pubDate>Tue, 19 Apr 2022 11:22:00 +0800</pubDate>
             <description><![CDATA[ &lt;h1 id=&#34;利用docker安装&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#利用docker安装&#34;&gt;#&lt;/a&gt; 利用 Docker 安装&lt;/h1&gt;
@@ -218,8 +218,8 @@ topic 下会划分多个 partition，每个 partition 都有自己的 replica，
             <category term="Java" scheme="https://sprenedayf.com/categories/Java/" />
             <category term="中间件" scheme="https://sprenedayf.com/categories/Java/%E4%B8%AD%E9%97%B4%E4%BB%B6/" />
             <category term="Zookeeper" scheme="https://sprenedayf.com/categories/Java/%E4%B8%AD%E9%97%B4%E4%BB%B6/Zookeeper/" />
-            <category term="中间件" scheme="https://sprenedayf.com/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/" />
             <category term="框架" scheme="https://sprenedayf.com/tags/%E6%A1%86%E6%9E%B6/" />
+            <category term="中间件" scheme="https://sprenedayf.com/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/" />
             <category term="Zookeeper" scheme="https://sprenedayf.com/tags/Zookeeper/" />
             <pubDate>Mon, 18 Apr 2022 10:30:12 +0800</pubDate>
             <description><![CDATA[ &lt;p&gt;之前介绍了 Zookeeper 的&lt;a href=&#34;/2022/04/15/Java/Zookeeper%E7%9A%84%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%97%851/&#34;&gt;一些知识&lt;/a&gt;，是不是摩拳擦掌想要敲两行代码了～&lt;br /&gt;
@@ -369,8 +369,8 @@ topic 下会划分多个 partition，每个 partition 都有自己的 replica，
             <category term="Java" scheme="https://sprenedayf.com/categories/Java/" />
             <category term="中间件" scheme="https://sprenedayf.com/categories/Java/%E4%B8%AD%E9%97%B4%E4%BB%B6/" />
             <category term="Zookeeper" scheme="https://sprenedayf.com/categories/Java/%E4%B8%AD%E9%97%B4%E4%BB%B6/Zookeeper/" />
-            <category term="中间件" scheme="https://sprenedayf.com/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/" />
             <category term="框架" scheme="https://sprenedayf.com/tags/%E6%A1%86%E6%9E%B6/" />
+            <category term="中间件" scheme="https://sprenedayf.com/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/" />
             <category term="Zookeeper" scheme="https://sprenedayf.com/tags/Zookeeper/" />
             <pubDate>Fri, 15 Apr 2022 16:08:32 +0800</pubDate>
             <description><![CDATA[ &lt;h1 id=&#34;利用docker安装&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#利用docker安装&#34;&gt;#&lt;/a&gt; 利用 Docker 安装&lt;/h1&gt;
@@ -418,8 +418,8 @@ topic 下会划分多个 partition，每个 partition 都有自己的 replica，
             <category term="Java" scheme="https://sprenedayf.com/categories/Java/" />
             <category term="中间件" scheme="https://sprenedayf.com/categories/Java/%E4%B8%AD%E9%97%B4%E4%BB%B6/" />
             <category term="Zookeeper" scheme="https://sprenedayf.com/categories/Java/%E4%B8%AD%E9%97%B4%E4%BB%B6/Zookeeper/" />
-            <category term="中间件" scheme="https://sprenedayf.com/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/" />
             <category term="框架" scheme="https://sprenedayf.com/tags/%E6%A1%86%E6%9E%B6/" />
+            <category term="中间件" scheme="https://sprenedayf.com/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/" />
             <category term="Zookeeper" scheme="https://sprenedayf.com/tags/Zookeeper/" />
             <pubDate>Fri, 15 Apr 2022 15:36:37 +0800</pubDate>
             <description><![CDATA[ &lt;h1 id=&#34;zookeeper简介&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#zookeeper简介&#34;&gt;#&lt;/a&gt; Zookeeper 简介&lt;/h1&gt;
@@ -689,8 +689,8 @@ Zookeeper 采用了名为&lt;strong&gt; ZAB&lt;/strong&gt; 的一致性协议。
             <link>https://sprenedayf.com/2022/04/14/Java/Spring-Boot-Druid-Mybatis%E9%85%8D%E7%BD%AE%E5%A4%9A%E6%95%B0%E6%8D%AE%E6%BA%90/</link>
             <category term="Java" scheme="https://sprenedayf.com/categories/Java/" />
             <category term="框架" scheme="https://sprenedayf.com/categories/Java/%E6%A1%86%E6%9E%B6/" />
-            <category term="框架" scheme="https://sprenedayf.com/tags/%E6%A1%86%E6%9E%B6/" />
             <category term="Spring Boot" scheme="https://sprenedayf.com/tags/Spring-Boot/" />
+            <category term="框架" scheme="https://sprenedayf.com/tags/%E6%A1%86%E6%9E%B6/" />
             <pubDate>Thu, 14 Apr 2022 15:33:12 +0800</pubDate>
             <description><![CDATA[ &lt;h1 id=&#34;背景&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#背景&#34;&gt;#&lt;/a&gt; 背景&lt;/h1&gt;
 &lt;p&gt;项目现在有一个需求，需要从 mysql 中查询一些元数据，从 clickhouse 中查询一些聚合分析数据，所以需要在项目中配置两个数据源，本来是打算用 &lt;code&gt;JDBCTemplate&lt;/code&gt;  来创建数据库连接解决，但是内心希望是可以利用连接池来帮助我解决这个需求，毕竟连接池可以帮我们管理连接，而且 clickhouse 也可以利用 Mybatis，正好不用把 sql 写到 java 代码里面了，统一放在 xml 文件里面更好管理。不多废话，直接开始：&lt;br /&gt;
