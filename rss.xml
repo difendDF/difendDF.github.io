@@ -10,11 +10,152 @@
         </author>
         <description>努力学习、生活</description>
         <language>zh-CN</language>
-        <pubDate>Sun, 24 Apr 2022 11:12:03 +0800</pubDate>
-        <lastBuildDate>Sun, 24 Apr 2022 11:12:03 +0800</lastBuildDate>
+        <pubDate>Sun, 01 May 2022 14:59:22 +0800</pubDate>
+        <lastBuildDate>Sun, 01 May 2022 14:59:22 +0800</lastBuildDate>
         <category term="计算机" />
         <category term="后端" />
         <category term="大数据" />
+        <item>
+            <guid isPermalink="true">https://sprenedayf.com/2022/05/01/big-data/clickhouse%E6%95%B0%E6%8D%AE%E6%9B%B4%E6%96%B0%E5%8F%8A%E5%AD%98%E5%82%A8%E6%B5%85%E6%9E%90/</guid>
+            <title>clickhouse数据存储原理浅析</title>
+            <link>https://sprenedayf.com/2022/05/01/big-data/clickhouse%E6%95%B0%E6%8D%AE%E6%9B%B4%E6%96%B0%E5%8F%8A%E5%AD%98%E5%82%A8%E6%B5%85%E6%9E%90/</link>
+            <category term="大数据" scheme="https://sprenedayf.com/categories/big-data/" />
+            <category term="数据分析" scheme="https://sprenedayf.com/categories/big-data/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" />
+            <category term="Clickhouse" scheme="https://sprenedayf.com/categories/big-data/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/Clickhouse/" />
+            <category term="大数据" scheme="https://sprenedayf.com/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" />
+            <category term="查询引擎" scheme="https://sprenedayf.com/tags/%E6%9F%A5%E8%AF%A2%E5%BC%95%E6%93%8E/" />
+            <category term="Clickhouse" scheme="https://sprenedayf.com/tags/Clickhouse/" />
+            <pubDate>Sun, 01 May 2022 14:59:22 +0800</pubDate>
+            <description><![CDATA[ &lt;h1 id=&#34;引言&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#引言&#34;&gt;#&lt;/a&gt; 引言&lt;/h1&gt;
+&lt;p&gt;        最近做项目有个需求，想对 clickhouse 中的数据添加几个标签，但是总记着之前草草看过说 clickhouse 这种 OLAP 引擎的更新和删除数据操作是灾难性的，所以决定看看 clickhouse 的存储原理，然后再斟酌一下技术方案吧～&lt;br /&gt;
+&lt;img data-src=&#34;https://tva2.sinaimg.cn/large/75c23013ly8h1t0zy9q7gj206y06wt8l.jpg&#34; alt=&#34;&#34; height=&#34;150px&#34; /&gt;&lt;/p&gt;
+&lt;h1 id=&#34;简介&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#简介&#34;&gt;#&lt;/a&gt; 简介&lt;/h1&gt;
+&lt;p&gt;        首先要清楚一点，clickhouse 是列式存储，列式存储一般来说更适合 OLAP 场景，查询分析性能上是要比行式存储要快的，为什么呢？这里简单的说一下吧...&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;我们都知道数据库里数据存储是按页来的，行式存储和列式存储顾名思义就是一个按照一行一行来存，一个按照一列一列来存，对比如下图所示：&lt;br /&gt;
+&lt;img data-src=&#34;https://tva1.sinaimg.cn/large/75c23013ly8h1t1j5ky14j21b40o677x.jpg&#34; alt=&#34;&#34; height=&#34;500px&#34; /&gt;&lt;br /&gt;
+        然后你想啊，你做查询分析的时候总不是把所有的列都一股脑的取出来吧？这些列都放在一起，你要拿到内存中的页也少了，寻址次数也少了，效率自然就上去了不是～&lt;/li&gt;
+&lt;li&gt;因为我们一列数据的数据类型是相同的，所以放在一起存储的时候就更方便做数据的压缩，这样我们在传输数据的时候网络时间也可以节约很多，所以也可以说是一方面的优势&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id=&#34;clickhouse表引擎与建表&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#clickhouse表引擎与建表&#34;&gt;#&lt;/a&gt; clickhouse 表引擎与建表&lt;/h1&gt;
+&lt;p&gt;首先先来看一下 clickhouse 中的建表语句：&lt;/p&gt;
+&lt;figure class=&#34;highlight sql&#34;&gt;&lt;figcaption data-lang=&#34;SQL&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;CREATE&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;TABLE&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;token keyword&#34;&gt;IF&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;NOT&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;EXISTS&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;db&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;table_name &lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;token keyword&#34;&gt;ON&lt;/span&gt; CLUSTER cluster&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    name1 &lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;type1&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;token boolean&#34;&gt;NULL&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;|&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;NOT&lt;/span&gt; &lt;span class=&#34;token boolean&#34;&gt;NULL&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;token keyword&#34;&gt;DEFAULT&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;|&lt;/span&gt;MATERIALIZED&lt;span class=&#34;token operator&#34;&gt;|&lt;/span&gt;EPHEMERAL&lt;span class=&#34;token operator&#34;&gt;|&lt;/span&gt;ALIAS expr1&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    name2 &lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;type2&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;token boolean&#34;&gt;NULL&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;|&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;NOT&lt;/span&gt; &lt;span class=&#34;token boolean&#34;&gt;NULL&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;token keyword&#34;&gt;DEFAULT&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;|&lt;/span&gt;MATERIALIZED&lt;span class=&#34;token operator&#34;&gt;|&lt;/span&gt;EPHEMERAL&lt;span class=&#34;token operator&#34;&gt;|&lt;/span&gt;ALIAS expr2&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;ENGINE&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;engine&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;基本上和 MySQL 建表一样对吧，这里需要注意几个地方：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;在 clickhouse 中建表需要设定表引擎，clickhouse 设定了合并数、外部存储、内存、文件、接口和其他 6 大类 20 多种表引擎，总有一种适合你&lt;/li&gt;
+&lt;li&gt;clickhouse 中设定默认值有这么几种关键字 &lt;code&gt;DEFAULT|MATERIALIZED|EPHEMERAL|ALIAS&lt;/code&gt; ，其中最常用的就是 DEFAULT。&lt;span class=&#34;red&#34;&gt;在数据写入的时候只有 DEFAULT 类型的字段可以出现在 INSERT 中，在数据查询时只有 DEFAULT 类型的字段可以通过 SELECT * 选择，在数据存储时只有 DEFAULT 和 MATERIALIZED 类型的字段可以持久化&lt;/span&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id=&#34;合并树家族mergetree&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#合并树家族mergetree&#34;&gt;#&lt;/a&gt; 合并树家族 (MergeTree)&lt;/h1&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://tva2.sinaimg.cn/large/75c23013ly8h1t61v05aaj20lq07mmxn.jpg&#34; alt=&#34;&#34; height=&#34;350px&#34; /&gt;&lt;br /&gt;
+        在生产环境中大多数都是使用的 MergeTree 表引擎家族：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;只有合并树系列的表引擎才支持主键索引、数据分区、数据副本和数据采样等特性&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;只有此系列的表引擎支持 ALTER 相关操作&lt;/strong&gt;&lt;br /&gt;
+然后我们就以 MergeTree 为例讲一下 clickhouse 存储那些事儿～&lt;br /&gt;
+&lt;img data-src=&#34;https://tva3.sinaimg.cn/large/75c23013ly8h1t668ucs9j20c80c8t9j.jpg&#34; alt=&#34;&#34; height=&#34;150px&#34; /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;mergetree的创建方式&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#mergetree的创建方式&#34;&gt;#&lt;/a&gt; MergeTree 的创建方式&lt;/h2&gt;
+&lt;figure class=&#34;highlight sql&#34;&gt;&lt;figcaption data-lang=&#34;SQL&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;CREATE&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;TABLE&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;token keyword&#34;&gt;IF&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;NOT&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;EXISTS&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;db_name&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;table_name&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt; &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;  name1 &lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;token keyword&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;token keyword&#34;&gt;DEFAULT&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;|&lt;/span&gt;MATERIALIZED&lt;span class=&#34;token operator&#34;&gt;|&lt;/span&gt;ALIAS expr&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;  name2 &lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;token keyword&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;token keyword&#34;&gt;DEFAULT&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;|&lt;/span&gt;MATERIALIZED&lt;span class=&#34;token operator&#34;&gt;|&lt;/span&gt;ALIAS expr&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;  省略&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt; &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;ENGINE&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; MergeTree&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;token keyword&#34;&gt;PARTITION&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;BY&lt;/span&gt; expr&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt; &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;token keyword&#34;&gt;ORDER&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;BY&lt;/span&gt; expr&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt; &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;token keyword&#34;&gt;PRIMARY&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;KEY&lt;/span&gt; expr&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt; &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;9&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;SAMPLE &lt;span class=&#34;token keyword&#34;&gt;BY&lt;/span&gt; expr&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt; &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;10&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;SETTINGS name&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;token keyword&#34;&gt;value&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; 省略&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;这里需要说一下一些主要参数：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;PARTITION BY&lt;/strong&gt; [选填]&lt;br /&gt;
+ 分区键，用于指定表数据以何种标准进行分区。分区键既可以是单个列字段，也可以通过元组的形式使用多个列字段，同时它也支持使用列表达式。&lt;span class=&#34;blue&#34;&gt;如果不声明分区键，则 ClickHouse 会生成一个名为 all 的分区&lt;/span&gt;。合理使用数据分区，可以有效减少查询时数据文件的扫描范围&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;ORDER BY&lt;/strong&gt; [必填]&lt;br /&gt;
+ 排序键，用于指定在一个数据片段内，数据以何种标准排序。默认情况下主键（PRIMARY KEY）与排序键相同。排序键既可以是单个列字段，例如 ORDER BY CounterID，也可以通过元组的形式使用多个列字段，例如 ORDER BY（CounterID,EventDate）。当使用多个列字段排序时，以 ORDER BY（CounterID,EventDate）为例，在单个数据片段内，数据首先会以 CounterID 排序，相同 CounterID 的数据再按 EventDate 排序。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;PRIMARY KEY&lt;/strong&gt; [选填]&lt;br /&gt;
+ 主键，顾名思义，声明后会依照主键字段生成一级索引，用于加速表查询。默认情况下，主键与排序键&lt;br /&gt;
+ (ORDER BY) 相同，所以通常直接使用 ORDER BY 代为指定主键，无须刻意通过 PRIMARY KEY 声明。所以在一般情况下，在单个数据片段内，数据与一级索引以相同的规则升序排列。与其他数据库不同，MergeTree 主键允许存在重复数据（ReplacingMergeTree 可以去重）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;SAMPLE BY&lt;/strong&gt; [选填]&lt;br /&gt;
+ 抽样表达式，用于声明数据以何种标准进行采样。如果使用了此配置项，那么在主键的配置中也需要声明同样的表达式&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;SETTINGS：index_granularity&lt;/strong&gt; [选填]&lt;br /&gt;
+ index_granularity 对于 MergeTree 而言是一项非常重要的参数，它表示索引的粒度，默认值为 8192。也就是说，MergeTree 的索引在默认情况下，每间隔 8192 行数据才生成一条索引&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;mergetree的存储结构&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#mergetree的存储结构&#34;&gt;#&lt;/a&gt; MergeTree 的存储结构&lt;/h2&gt;
+&lt;p&gt;MergeTree 表引擎中的数据是拥有物理存储的，数据会按照分区目录的形式保存到磁盘之上，其完整的存储结构如下图:&lt;br /&gt;
+&lt;img data-src=&#34;https://tva3.sinaimg.cn/large/75c23013ly8h1t6eznu0rj20hy0kr3za.jpg&#34; alt=&#34;&#34; height=&#34;550px&#34; /&gt;&lt;br /&gt;
+ 可以看出，一张数据表的完整物理结构分为 3 个层级，依次是数据表目录、分区目录及各分区下具体的数据文件:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;分区目录：partition&lt;/strong&gt;&lt;br /&gt;
+ 余下各类数据文件（primary.idx、 [Column].mrk、[Column].bin 等）都是以分区目录的形式被组织存放的，属于相同分区的数据，最终会被合并到同一个分区目录，而不同分区的数据，永远不会被合并在一起。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;校验文件：checksums.txt&lt;/strong&gt;&lt;br /&gt;
+ 使用二进制格式存储。它保存了余下各类文件 (primary.idx、count.txt 等) 的 size 大小及 size 的哈希值，用于快速校验文件的完整性和正确性。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;列信息文件：columns.txt&lt;/strong&gt;&lt;br /&gt;
+ 使用明文格式存储。用于保存此数据分区下的列字段信息，例如：&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;$ &lt;span class=&#34;token function&#34;&gt;cat&lt;/span&gt; columns.txt &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;columns &lt;span class=&#34;token function&#34;&gt;format&lt;/span&gt; version: &lt;span class=&#34;token number&#34;&gt;1&lt;/span&gt; &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token number&#34;&gt;4&lt;/span&gt; columns: &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token string&#34;&gt;&#39;ID&#39;&lt;/span&gt; String &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token string&#34;&gt;&#39;URL&#39;&lt;/span&gt; String &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token string&#34;&gt;&#39;Code&#39;&lt;/span&gt; String &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token string&#34;&gt;&#39;EventTime&#39;&lt;/span&gt; Date&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;&lt;strong&gt;计数文件：count.txt&lt;/strong&gt;&lt;br /&gt;
+ 使用明文格式存储。用于记录当前数据分区目录下数据的总行数，例如：&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;$ &lt;span class=&#34;token function&#34;&gt;cat&lt;/span&gt; count.txt &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token number&#34;&gt;8&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;ol start=&#34;5&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;一级索引文件：primary.idx&lt;/strong&gt;&lt;br /&gt;
+ 使用二进制格式存储，用于存放稀疏索引，一张 MergeTree 表只能声明一次一级索引（通过 &lt;code&gt;ORDER BY&lt;/code&gt;  或者 &lt;code&gt;PRIMARY KEY&lt;/code&gt; ）。借助稀疏索引，在数据查询的时能够排除主键条件范围之外的数据文件，从而有效减少数据扫描范围，加速查询速度。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;数据文件：[Column].bin&lt;/strong&gt;&lt;br /&gt;
+ 使用压缩格式存储，默认为 LZ4 压缩格式，用于存储某一列的数据。由于 MergeTree 采用列式存储，所以每一个列字段都拥有独立的.bin 数据文件，并以列字段名称命名（例如 CounterID.bin、EventDate.bin 等）。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;列字段标记文件：[Column].mrk&lt;/strong&gt;&lt;br /&gt;
+ 使用二进制格式存储，标记文件中保存了.bin 文件中数据的偏移量信息。标记文件与稀疏索引对齐，又与.bin 文件一一对应，所以 MergeTree 通过标记文件建立了 primary.idx 稀疏索引与.bin 数据文件之间的映射关系。即&lt;span class=&#34;red&#34;&gt;首先通过稀疏索引（primary.idx）找到对应数据的偏移量信息（.mrk），再通过偏移量直接从.bin 文件中读取数据&lt;/span&gt;。由于.mrk 标记文件与.bin 文件一一对应，所以 MergeTree 中的每个列字段都会拥有与其对应的.mrk 标记文件（例如 CounterID.mrk、EventDate.mrk 等）。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;[Column].mrk2&lt;/strong&gt;&lt;br /&gt;
+ 如果使用了自适应大小的索引间隔，则标记文件会以.mrk2 命名。它的工作原理和作用与.mrk 标记文件相同。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;partition.dat 与 minmax_[Column].idx&lt;/strong&gt;&lt;br /&gt;
+ 如果使用了分区键，例如 &lt;code&gt;PARTITION BY EventTime&lt;/code&gt; ，则会额外生成 &lt;code&gt;partition.dat&lt;/code&gt;  与 &lt;code&gt;minmax&lt;/code&gt;  索引文件，它们均使用二进制格式存储。 &lt;code&gt;partition.dat&lt;/code&gt;  用于保存当前分区下分区表达式最终生成的值；而 &lt;code&gt;minmax&lt;/code&gt;  索引用于记录当前分区下分区字段对应原始数据的最小和最大值。例如 EventTime 字段对应的原始数据为 2019-05-01、2019-05-05，分区表达式为 PARTITION BY toYYYYMM (EventTime)。 &lt;code&gt;partition.dat&lt;/code&gt;  中保存的值将是 2019-05，而 &lt;code&gt;minmax&lt;/code&gt;  索引中保存的值将会是 2019-05-012019-05-05。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;skp_idx_[Column].idx 与 skp_idx_[Column].mrk&lt;/strong&gt;&lt;br /&gt;
+ 如果在建表语句中声明了二级索引，则会额外生成相应的二级索引与标记文件，它们同样也使用二进制存储。二级索引在 ClickHouse 中又称跳数索引，目前拥有 minmax、set、ngrambf_v1 和 tokenbf_v1 四种类型。这些索引的&lt;br /&gt;
+最终目标与一级稀疏索引相同，都是为了进一步减少所需扫描的数据范围，以加速整个查询过程。&lt;br /&gt;
+&lt;img data-src=&#34;https://tva1.sinaimg.cn/large/75c23013ly8h1t6ocodtbj20k00fz776.jpg&#34; alt=&#34;&#34; height=&#34;450px&#34; /&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;数据分区&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#数据分区&#34;&gt;#&lt;/a&gt; 数据分区&lt;/h2&gt;
+&lt;h3 id=&#34;数据的分区规则&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#数据的分区规则&#34;&gt;#&lt;/a&gt; 数据的分区规则&lt;/h3&gt;
+&lt;p&gt;针对取值数据类型的不同，分区 ID 的生成逻辑目前拥有四种规则：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;不指定分区键&lt;br /&gt;
+如果不使用分区键，即不使用 &lt;code&gt;PARTITION BY&lt;/code&gt;  声明任何分区表达式，则分区 ID 默认取名为 all，所有的数据都会被写入这个 all 分区。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;使用整型&lt;br /&gt;
+如果分区键取值属于整型（兼容 UInt64，包括有符号整型和无符号整型），且无法转换为日期类型 YYYYMMDD 格式，则直接按照该整型的&lt;strong&gt;字符形式&lt;/strong&gt;输出，作为分区 ID 的取值。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;使用日期类型&lt;br /&gt;
+如果分区键取值属于日期类型，或者是能够转换为 YYYYMMDD 格式的整型，则使用&lt;strong&gt;按照 YYYYMMDD 进行格式化&lt;/strong&gt;后的字符形式输出，并作为分区 ID 的取值。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;使用其他类型&lt;br /&gt;
+如果分区键取值既不属于整型，也不属于日期类型，例如 String、Float 等，则通过 128 位&lt;strong&gt; Hash 算法&lt;/strong&gt;取其 Hash 值作为分区 ID 的取值&lt;br /&gt;
+&lt;img data-src=&#34;https://tva3.sinaimg.cn/large/75c23013ly8h1t7749dn3j20gk06v74t.jpg&#34; alt=&#34;&#34; height=&#34;350px&#34; /&gt;&lt;br /&gt;
+如果分区字段采用了多个，则会利用 &#39;-&#39; 符号一次拼接，例如使用 &lt;code&gt;PARTITION BY (length(Code),EventTime)&lt;/code&gt;  来分区，则分区 ID 会是 &lt;code&gt;2-20190501&lt;/code&gt;  的形式&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;分区目录的命名规则&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#分区目录的命名规则&#34;&gt;#&lt;/a&gt; 分区目录的命名规则&lt;/h3&gt;
+&lt;p&gt;完整的分区目录命名公式为： &lt;code&gt;PartitionID_MinBlockNum_MaxBlockNum_Level&lt;/code&gt; ，比如：&lt;br /&gt;
+&lt;img data-src=&#34;https://tva4.sinaimg.cn/large/75c23013ly8h1t79t6zt7j20gk06ywet.jpg&#34; alt=&#34;&#34; height=&#34;100px&#34; /&gt;&lt;/p&gt;
+ ]]></description>
+        </item>
         <item>
             <guid isPermalink="true">https://sprenedayf.com/2022/04/24/life/%E4%B8%80%E7%AF%87%E4%B8%8D%E7%9F%A5%E9%81%93%E8%AF%A5%E8%B5%B7%E4%BB%80%E4%B9%88%E5%90%8D%E5%AD%97%E7%9A%84%E7%A2%8E%E7%A2%8E%E5%BF%B5/</guid>
             <title>一篇不知道该起什么名字的碎碎念</title>
