@@ -8,10 +8,54 @@
     <author>
       <name>蝶风</name>
     </author>
-    <updated>2022-05-07T03:49:15.000Z</updated>
+    <updated>2022-05-07T08:24:37.000Z</updated>
     <category term="计算机" />
     <category term="后端" />
     <category term="大数据" />
+    <entry>
+        <id>https://sprenedayf.com/2022/05/07/Java/%E6%93%8D%E4%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%932/</id>
+        <title>操作数据库方法总结2</title>
+        <link rel="alternate" href="https://sprenedayf.com/2022/05/07/Java/%E6%93%8D%E4%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%932/"/>
+        <content type="html">&lt;h1 id=&#34;引言&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#引言&#34;&gt;#&lt;/a&gt; 引言&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&#34;/2022/05/07/Java/%E6%93%8D%E4%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%931/&#34;&gt;上一篇文章&lt;/a&gt;中介绍了 JDBC、JDBCTemplate 和数据库连接池，太原始了吧，我们想要做大做强，不上 ORM 框架怎么能行，走起！&lt;br /&gt;
+&lt;img data-src=&#34;https://tva2.sinaimg.cn/large/75c23013ly8h1zxgwcev8j205k05k3yl.jpg&#34; alt=&#34;&#34; height=&#34;150px&#34; /&gt;&lt;/p&gt;
+&lt;h1 id=&#34;mybatis&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#mybatis&#34;&gt;#&lt;/a&gt; MyBatis&lt;/h1&gt;
+&lt;p&gt;&lt;code&gt;MyBatis&lt;/code&gt;  是一个支持普通 SQL 查询，存储过程和高级映射的优秀持久层 (半) ORM 框架，它消除了几乎所有的 &lt;code&gt;JDBC&lt;/code&gt;  代码和参数的手工设置以及对结果集的检索封装。 &lt;code&gt;MyBatis&lt;/code&gt;  可以使用简单的 XML 或注解用于配置和原始映射，将接口和 Java 的 &lt;code&gt;POJO&lt;/code&gt; （Plain Old Java Objects，普通的 Java 对象）映射成数据库中的记录。&lt;br /&gt;
+细心的同学一定发现了，这里说的是半 ORM 框架，为什么是半？ &lt;code&gt;ORM（Object-Relational Mapping）&lt;/code&gt; 对象关系映射，简单的说：&lt;strong&gt;ORM 就是建立实体类和数据库表之间的关系，从而达到操作实体类就相当于操作数据库表的目的&lt;/strong&gt;。而我们的 MyBatis 还是需要写 sql 语句的嘛，只不过它帮我们封装了映射，所以只能算得上半 ORM 框架啦～&lt;/p&gt;
+&lt;h2 id=&#34;基本原理&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#基本原理&#34;&gt;#&lt;/a&gt; 基本原理&lt;/h2&gt;
+&lt;p&gt;我之前的文章中有写过 &lt;code&gt;MyBatis&lt;/code&gt;  封装结果集的原理，这里我不打算再走源码了，而是简单的了解一下整体思想就可以啦～(主要考虑到就这么干看源码很容易就忽略一些重点，本质上还是在了解流程，所以干脆就直接了解思想吧🤣)&lt;br /&gt;
+ 首先我们了解过 &lt;code&gt;JDBC&lt;/code&gt;  的工作流程，并知道了 &lt;code&gt;JDBC&lt;/code&gt;  有四个核心类：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt; &lt;code&gt;DriverManager&lt;/code&gt; &lt;/strong&gt;: 用于注册数据库连接&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt; &lt;code&gt;Connection&lt;/code&gt; &lt;/strong&gt;: 与数据库连接对象&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt; &lt;code&gt;Statement/PrepareStatement&lt;/code&gt; &lt;/strong&gt;: 操作数据库 SQL 语句的对象&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt; &lt;code&gt;ResultSet&lt;/code&gt; &lt;/strong&gt;: 结果集&lt;br /&gt;
+而 &lt;code&gt;MyBatis&lt;/code&gt;  也有四大核心对象：&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt; &lt;code&gt;SqlSession&lt;/code&gt;  对象&lt;/strong&gt;：该对象中包含了执行 SQL 语句的所有方法。类似于 &lt;code&gt;JDBC&lt;/code&gt;  里面的 &lt;code&gt;Connection&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt; &lt;code&gt;Executor&lt;/code&gt;  接口&lt;/strong&gt;：它将根据 &lt;code&gt;SqlSession&lt;/code&gt;  传递的参数动态地生成需要执行的 SQL 语句，同时负责查询缓存的维护。类似于 JDBC 里面的 &lt;code&gt;Statement/PrepareStatement&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt; &lt;code&gt;MappedStatement&lt;/code&gt;  对象&lt;/strong&gt;：该对象是对映射 SQL 的封装，用于存储要映射的 SQL 语句的 id、参数等信息&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt; &lt;code&gt;ResultHandler&lt;/code&gt;  对象&lt;/strong&gt;：用于对返回的结果进行处理，最终得到自己想要的数据格式或类型。可以自定义返回类型&lt;br /&gt;
+ MyBatis 的具体工作流程如下图展示：&lt;br /&gt;
+&lt;img data-src=&#34;https://tva3.sinaimg.cn/large/75c23013ly8h208qx1302j20kd0n3abk.jpg&#34; alt=&#34;&#34; height=&#34;650px&#34; /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;读取 MyBatis 的配置文件&lt;/strong&gt;。 &lt;code&gt;mybatis-config.xml&lt;/code&gt;  为 MyBatis 的全局配置文件，用于配置数据库连接信息。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;加载映射文件&lt;/strong&gt;。映射文件即 SQL 映射文件，该文件中配置了操作数据库的 SQL 语句，需要在 &lt;code&gt;MyBatis&lt;/code&gt;  配置文件 &lt;code&gt;mybatis-config.xml&lt;/code&gt;  中加载。 &lt;code&gt;mybatis-config.xml&lt;/code&gt;  文件可以加载多个映射文件，每个文件对应数据库中的一张表。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;构造会话工厂&lt;/strong&gt;。通过 &lt;code&gt;MyBatis&lt;/code&gt;  的环境配置信息构建会话工厂 &lt;code&gt;SqlSessionFactory&lt;/code&gt; 。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;创建会话对象&lt;/strong&gt;。由会话工厂创建 &lt;code&gt;SqlSession&lt;/code&gt;  对象，该对象中包含了执行 SQL 语句的所有方法。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Executor 执行器&lt;/strong&gt;。 &lt;code&gt;MyBatis&lt;/code&gt;  底层定义了一个 &lt;code&gt;Executor&lt;/code&gt;  接口来操作数据库，它将根据 &lt;code&gt;SqlSession&lt;/code&gt;  传递的参数动态地生成需要执行的 SQL 语句，同时负责查询缓存的维护。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;MappedStatement 对象&lt;/strong&gt;。在 &lt;code&gt;Executor&lt;/code&gt;  接口的执行方法中有一个 &lt;code&gt;MappedStatement&lt;/code&gt;  类型的参数，该参数是对映射信息的封装，用于存储要映射的 SQL 语句的 id、参数等信息。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;输入参数映射&lt;/strong&gt;。输入参数类型可以是 &lt;code&gt;Map&lt;/code&gt; 、 &lt;code&gt;List&lt;/code&gt;  等集合类型，也可以是基本数据类型和 &lt;code&gt;POJO&lt;/code&gt;  类型。输入参数映射过程类似于 &lt;code&gt;JDBC&lt;/code&gt;  对 &lt;code&gt;preparedStatement&lt;/code&gt;  对象设置参数的过程。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;输出结果映射&lt;/strong&gt;。输出结果类型可以是 &lt;code&gt;Map&lt;/code&gt; 、 &lt;code&gt;List&lt;/code&gt;  等集合类型，也可以是基本数据类型和 &lt;code&gt;POJO&lt;/code&gt;  类型。输出结果映射过程类似于 &lt;code&gt;JDBC&lt;/code&gt;  对结果集的解析过程。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;spring实战&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#spring实战&#34;&gt;#&lt;/a&gt; Spring 实战&lt;/h2&gt;
+</content>
+        <category term="Java" scheme="https://sprenedayf.com/categories/Java/" />
+        <category term="基础知识" scheme="https://sprenedayf.com/categories/Java/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" />
+        <category term="Java基础" scheme="https://sprenedayf.com/tags/Java%E5%9F%BA%E7%A1%80/" />
+        <category term="数据库" scheme="https://sprenedayf.com/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" />
+        <updated>2022-05-07T08:24:37.000Z</updated>
+    </entry>
     <entry>
         <id>https://sprenedayf.com/2022/05/07/Java/%E6%93%8D%E4%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%931/</id>
         <title>操作数据库方法总结1</title>
@@ -284,8 +328,8 @@ A: Java 编译器是通过先检查代码中泛型的类型，然后在进行类
 </content>
         <category term="Java" scheme="https://sprenedayf.com/categories/Java/" />
         <category term="经验总结" scheme="https://sprenedayf.com/categories/Java/%E7%BB%8F%E9%AA%8C%E6%80%BB%E7%BB%93/" />
-        <category term="经验总结" scheme="https://sprenedayf.com/tags/%E7%BB%8F%E9%AA%8C%E6%80%BB%E7%BB%93/" />
         <category term="Java基础" scheme="https://sprenedayf.com/tags/Java%E5%9F%BA%E7%A1%80/" />
+        <category term="经验总结" scheme="https://sprenedayf.com/tags/%E7%BB%8F%E9%AA%8C%E6%80%BB%E7%BB%93/" />
         <category term="MyBatis" scheme="https://sprenedayf.com/tags/MyBatis/" />
         <updated>2022-05-04T03:31:43.000Z</updated>
     </entry>

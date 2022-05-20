@@ -7,6 +7,19 @@
     "home_page_url": "https://sprenedayf.com",
     "items": [
         {
+            "id": "https://sprenedayf.com/2022/05/07/Java/%E6%93%8D%E4%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%932/",
+            "url": "https://sprenedayf.com/2022/05/07/Java/%E6%93%8D%E4%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%932/",
+            "title": "操作数据库方法总结2",
+            "date_published": "2022-05-07T08:24:37.000Z",
+            "content_html": "<h1 id=\"引言\"><a class=\"anchor\" href=\"#引言\">#</a> 引言</h1>\n<p><a href=\"/2022/05/07/Java/%E6%93%8D%E4%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%931/\">上一篇文章</a>中介绍了 JDBC、JDBCTemplate 和数据库连接池，太原始了吧，我们想要做大做强，不上 ORM 框架怎么能行，走起！<br />\n<img data-src=\"https://tva2.sinaimg.cn/large/75c23013ly8h1zxgwcev8j205k05k3yl.jpg\" alt=\"\" height=\"150px\" /></p>\n<h1 id=\"mybatis\"><a class=\"anchor\" href=\"#mybatis\">#</a> MyBatis</h1>\n<p><code>MyBatis</code>  是一个支持普通 SQL 查询，存储过程和高级映射的优秀持久层 (半) ORM 框架，它消除了几乎所有的 <code>JDBC</code>  代码和参数的手工设置以及对结果集的检索封装。 <code>MyBatis</code>  可以使用简单的 XML 或注解用于配置和原始映射，将接口和 Java 的 <code>POJO</code> （Plain Old Java Objects，普通的 Java 对象）映射成数据库中的记录。<br />\n细心的同学一定发现了，这里说的是半 ORM 框架，为什么是半？ <code>ORM（Object-Relational Mapping）</code> 对象关系映射，简单的说：<strong>ORM 就是建立实体类和数据库表之间的关系，从而达到操作实体类就相当于操作数据库表的目的</strong>。而我们的 MyBatis 还是需要写 sql 语句的嘛，只不过它帮我们封装了映射，所以只能算得上半 ORM 框架啦～</p>\n<h2 id=\"基本原理\"><a class=\"anchor\" href=\"#基本原理\">#</a> 基本原理</h2>\n<p>我之前的文章中有写过 <code>MyBatis</code>  封装结果集的原理，这里我不打算再走源码了，而是简单的了解一下整体思想就可以啦～(主要考虑到就这么干看源码很容易就忽略一些重点，本质上还是在了解流程，所以干脆就直接了解思想吧🤣)<br />\n 首先我们了解过 <code>JDBC</code>  的工作流程，并知道了 <code>JDBC</code>  有四个核心类：</p>\n<ul>\n<li><strong> <code>DriverManager</code> </strong>: 用于注册数据库连接</li>\n<li><strong> <code>Connection</code> </strong>: 与数据库连接对象</li>\n<li><strong> <code>Statement/PrepareStatement</code> </strong>: 操作数据库 SQL 语句的对象</li>\n<li><strong> <code>ResultSet</code> </strong>: 结果集<br />\n而 <code>MyBatis</code>  也有四大核心对象：</li>\n<li><strong> <code>SqlSession</code>  对象</strong>：该对象中包含了执行 SQL 语句的所有方法。类似于 <code>JDBC</code>  里面的 <code>Connection</code></li>\n<li><strong> <code>Executor</code>  接口</strong>：它将根据 <code>SqlSession</code>  传递的参数动态地生成需要执行的 SQL 语句，同时负责查询缓存的维护。类似于 JDBC 里面的 <code>Statement/PrepareStatement</code></li>\n<li><strong> <code>MappedStatement</code>  对象</strong>：该对象是对映射 SQL 的封装，用于存储要映射的 SQL 语句的 id、参数等信息</li>\n<li><strong> <code>ResultHandler</code>  对象</strong>：用于对返回的结果进行处理，最终得到自己想要的数据格式或类型。可以自定义返回类型<br />\n MyBatis 的具体工作流程如下图展示：<br />\n<img data-src=\"https://tva3.sinaimg.cn/large/75c23013ly8h208qx1302j20kd0n3abk.jpg\" alt=\"\" height=\"650px\" /></li>\n</ul>\n<ol>\n<li><strong>读取 MyBatis 的配置文件</strong>。 <code>mybatis-config.xml</code>  为 MyBatis 的全局配置文件，用于配置数据库连接信息。</li>\n<li><strong>加载映射文件</strong>。映射文件即 SQL 映射文件，该文件中配置了操作数据库的 SQL 语句，需要在 <code>MyBatis</code>  配置文件 <code>mybatis-config.xml</code>  中加载。 <code>mybatis-config.xml</code>  文件可以加载多个映射文件，每个文件对应数据库中的一张表。</li>\n<li><strong>构造会话工厂</strong>。通过 <code>MyBatis</code>  的环境配置信息构建会话工厂 <code>SqlSessionFactory</code> 。</li>\n<li><strong>创建会话对象</strong>。由会话工厂创建 <code>SqlSession</code>  对象，该对象中包含了执行 SQL 语句的所有方法。</li>\n<li><strong>Executor 执行器</strong>。 <code>MyBatis</code>  底层定义了一个 <code>Executor</code>  接口来操作数据库，它将根据 <code>SqlSession</code>  传递的参数动态地生成需要执行的 SQL 语句，同时负责查询缓存的维护。</li>\n<li><strong>MappedStatement 对象</strong>。在 <code>Executor</code>  接口的执行方法中有一个 <code>MappedStatement</code>  类型的参数，该参数是对映射信息的封装，用于存储要映射的 SQL 语句的 id、参数等信息。</li>\n<li><strong>输入参数映射</strong>。输入参数类型可以是 <code>Map</code> 、 <code>List</code>  等集合类型，也可以是基本数据类型和 <code>POJO</code>  类型。输入参数映射过程类似于 <code>JDBC</code>  对 <code>preparedStatement</code>  对象设置参数的过程。</li>\n<li><strong>输出结果映射</strong>。输出结果类型可以是 <code>Map</code> 、 <code>List</code>  等集合类型，也可以是基本数据类型和 <code>POJO</code>  类型。输出结果映射过程类似于 <code>JDBC</code>  对结果集的解析过程。</li>\n</ol>\n<h2 id=\"spring实战\"><a class=\"anchor\" href=\"#spring实战\">#</a> Spring 实战</h2>\n",
+            "tags": [
+                "Java",
+                "基础知识",
+                "Java基础",
+                "数据库"
+            ]
+        },
+        {
             "id": "https://sprenedayf.com/2022/05/07/Java/%E6%93%8D%E4%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%931/",
             "url": "https://sprenedayf.com/2022/05/07/Java/%E6%93%8D%E4%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%931/",
             "title": "操作数据库方法总结1",
@@ -28,8 +41,8 @@
             "tags": [
                 "Java",
                 "经验总结",
-                "经验总结",
                 "Java基础",
+                "经验总结",
                 "MyBatis"
             ]
         },
