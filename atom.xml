@@ -694,8 +694,8 @@ topic 下会划分多个 partition，每个 partition 都有自己的 replica，
         <category term="Java" scheme="https://sprenedayf.com/categories/Java/" />
         <category term="中间件" scheme="https://sprenedayf.com/categories/Java/%E4%B8%AD%E9%97%B4%E4%BB%B6/" />
         <category term="Kafka" scheme="https://sprenedayf.com/categories/Java/%E4%B8%AD%E9%97%B4%E4%BB%B6/Kafka/" />
-        <category term="框架" scheme="https://sprenedayf.com/tags/%E6%A1%86%E6%9E%B6/" />
         <category term="中间件" scheme="https://sprenedayf.com/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/" />
+        <category term="框架" scheme="https://sprenedayf.com/tags/%E6%A1%86%E6%9E%B6/" />
         <category term="Kafka" scheme="https://sprenedayf.com/tags/Kafka/" />
         <updated>2022-04-19T07:38:06.000Z</updated>
     </entry>
@@ -773,8 +773,8 @@ topic 下会划分多个 partition，每个 partition 都有自己的 replica，
         <category term="Java" scheme="https://sprenedayf.com/categories/Java/" />
         <category term="中间件" scheme="https://sprenedayf.com/categories/Java/%E4%B8%AD%E9%97%B4%E4%BB%B6/" />
         <category term="Kafka" scheme="https://sprenedayf.com/categories/Java/%E4%B8%AD%E9%97%B4%E4%BB%B6/Kafka/" />
-        <category term="框架" scheme="https://sprenedayf.com/tags/%E6%A1%86%E6%9E%B6/" />
         <category term="中间件" scheme="https://sprenedayf.com/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/" />
+        <category term="框架" scheme="https://sprenedayf.com/tags/%E6%A1%86%E6%9E%B6/" />
         <category term="Kafka" scheme="https://sprenedayf.com/tags/Kafka/" />
         <updated>2022-04-19T03:22:00.000Z</updated>
     </entry>
@@ -924,8 +924,8 @@ topic 下会划分多个 partition，每个 partition 都有自己的 replica，
         <category term="Java" scheme="https://sprenedayf.com/categories/Java/" />
         <category term="中间件" scheme="https://sprenedayf.com/categories/Java/%E4%B8%AD%E9%97%B4%E4%BB%B6/" />
         <category term="Zookeeper" scheme="https://sprenedayf.com/categories/Java/%E4%B8%AD%E9%97%B4%E4%BB%B6/Zookeeper/" />
-        <category term="框架" scheme="https://sprenedayf.com/tags/%E6%A1%86%E6%9E%B6/" />
         <category term="中间件" scheme="https://sprenedayf.com/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/" />
+        <category term="框架" scheme="https://sprenedayf.com/tags/%E6%A1%86%E6%9E%B6/" />
         <category term="Zookeeper" scheme="https://sprenedayf.com/tags/Zookeeper/" />
         <updated>2022-04-18T02:30:12.000Z</updated>
     </entry>
@@ -973,8 +973,8 @@ topic 下会划分多个 partition，每个 partition 都有自己的 replica，
         <category term="Java" scheme="https://sprenedayf.com/categories/Java/" />
         <category term="中间件" scheme="https://sprenedayf.com/categories/Java/%E4%B8%AD%E9%97%B4%E4%BB%B6/" />
         <category term="Zookeeper" scheme="https://sprenedayf.com/categories/Java/%E4%B8%AD%E9%97%B4%E4%BB%B6/Zookeeper/" />
-        <category term="框架" scheme="https://sprenedayf.com/tags/%E6%A1%86%E6%9E%B6/" />
         <category term="中间件" scheme="https://sprenedayf.com/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/" />
+        <category term="框架" scheme="https://sprenedayf.com/tags/%E6%A1%86%E6%9E%B6/" />
         <category term="Zookeeper" scheme="https://sprenedayf.com/tags/Zookeeper/" />
         <updated>2022-04-15T08:08:32.000Z</updated>
     </entry>
@@ -1245,8 +1245,8 @@ Zookeeper 采用了名为&lt;strong&gt; ZAB&lt;/strong&gt; 的一致性协议。
         <category term="Java" scheme="https://sprenedayf.com/categories/Java/" />
         <category term="中间件" scheme="https://sprenedayf.com/categories/Java/%E4%B8%AD%E9%97%B4%E4%BB%B6/" />
         <category term="Zookeeper" scheme="https://sprenedayf.com/categories/Java/%E4%B8%AD%E9%97%B4%E4%BB%B6/Zookeeper/" />
-        <category term="框架" scheme="https://sprenedayf.com/tags/%E6%A1%86%E6%9E%B6/" />
         <category term="中间件" scheme="https://sprenedayf.com/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/" />
+        <category term="框架" scheme="https://sprenedayf.com/tags/%E6%A1%86%E6%9E%B6/" />
         <category term="Zookeeper" scheme="https://sprenedayf.com/tags/Zookeeper/" />
         <updated>2022-04-15T07:36:37.000Z</updated>
     </entry>
@@ -1275,8 +1275,8 @@ Zookeeper 采用了名为&lt;strong&gt; ZAB&lt;/strong&gt; 的一致性协议。
 </content>
         <category term="Java" scheme="https://sprenedayf.com/categories/Java/" />
         <category term="框架" scheme="https://sprenedayf.com/categories/Java/%E6%A1%86%E6%9E%B6/" />
-        <category term="Spring Boot" scheme="https://sprenedayf.com/tags/Spring-Boot/" />
         <category term="框架" scheme="https://sprenedayf.com/tags/%E6%A1%86%E6%9E%B6/" />
+        <category term="Spring Boot" scheme="https://sprenedayf.com/tags/Spring-Boot/" />
         <updated>2022-04-14T07:33:12.000Z</updated>
     </entry>
     <entry>
