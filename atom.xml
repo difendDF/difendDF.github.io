@@ -13,9 +13,9 @@
     <category term="后端" />
     <category term="大数据" />
     <entry>
-        <id>https://sprenedayf.com/2022/06/07/computer-science/%E4%BA%91%E5%8E%9F%E7%94%9F/k8s%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/</id>
+        <id>https://sprenedayf.com/2022/06/07/learn-and-learn/%E4%BA%91%E5%8E%9F%E7%94%9F/k8s%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/</id>
         <title>k8s集群搭建</title>
-        <link rel="alternate" href="https://sprenedayf.com/2022/06/07/computer-science/%E4%BA%91%E5%8E%9F%E7%94%9F/k8s%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/"/>
+        <link rel="alternate" href="https://sprenedayf.com/2022/06/07/learn-and-learn/%E4%BA%91%E5%8E%9F%E7%94%9F/k8s%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/"/>
         <content type="html">&lt;h1 id=&#34;服务器准备&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#服务器准备&#34;&gt;#&lt;/a&gt; 服务器准备&lt;/h1&gt;
 &lt;table&gt;
 &lt;thead&gt;
@@ -104,8 +104,8 @@
 &lt;li&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM3MTYwMzQ2L2FydGljbGUvZGV0YWlscy8xMjA4NTEwODQ=&#34;&gt;kubeadm 安装 k8s 集群&lt;/span&gt;&lt;/li&gt;
 &lt;/ol&gt;
 </content>
-        <category term="计算机基础" scheme="https://sprenedayf.com/categories/computer-science/" />
-        <category term="云原生" scheme="https://sprenedayf.com/categories/computer-science/%E4%BA%91%E5%8E%9F%E7%94%9F/" />
+        <category term="学习不止" scheme="https://sprenedayf.com/categories/learn-and-learn/" />
+        <category term="云原生" scheme="https://sprenedayf.com/categories/learn-and-learn/%E4%BA%91%E5%8E%9F%E7%94%9F/" />
         <category term="云原生" scheme="https://sprenedayf.com/tags/%E4%BA%91%E5%8E%9F%E7%94%9F/" />
         <category term="k8s" scheme="https://sprenedayf.com/tags/k8s/" />
         <updated>2022-06-07T02:26:40.000Z</updated>

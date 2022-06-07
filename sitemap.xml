@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://sprenedayf.com/2022/06/07/computer-science/%E4%BA%91%E5%8E%9F%E7%94%9F/k8s%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/</loc>
+    <loc>https://sprenedayf.com/2022/06/07/learn-and-learn/%E4%BA%91%E5%8E%9F%E7%94%9F/k8s%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/</loc>
     
     <lastmod>2022-06-07</lastmod>
     
@@ -340,13 +340,6 @@
   </url>
   
   <url>
-    <loc>https://sprenedayf.com/categories/Java/%E6%A1%86%E6%9E%B6/</loc>
-    <lastmod>2022-06-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://sprenedayf.com/categories/life/</loc>
     <lastmod>2022-06-07</lastmod>
     <changefreq>weekly</changefreq>
@@ -354,7 +347,21 @@
   </url>
   
   <url>
+    <loc>https://sprenedayf.com/categories/Java/%E6%A1%86%E6%9E%B6/</loc>
+    <lastmod>2022-06-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://sprenedayf.com/categories/Java/%E4%B8%AD%E9%97%B4%E4%BB%B6/Zookeeper/</loc>
+    <lastmod>2022-06-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://sprenedayf.com/categories/learn-and-learn/</loc>
     <lastmod>2022-06-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -375,7 +382,7 @@
   </url>
   
   <url>
-    <loc>https://sprenedayf.com/categories/computer-science/%E4%BA%91%E5%8E%9F%E7%94%9F/</loc>
+    <loc>https://sprenedayf.com/categories/learn-and-learn/%E4%BA%91%E5%8E%9F%E7%94%9F/</loc>
     <lastmod>2022-06-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>

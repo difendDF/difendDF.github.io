@@ -16,11 +16,11 @@
         <category term="后端" />
         <category term="大数据" />
         <item>
-            <guid isPermalink="true">https://sprenedayf.com/2022/06/07/computer-science/%E4%BA%91%E5%8E%9F%E7%94%9F/k8s%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/</guid>
+            <guid isPermalink="true">https://sprenedayf.com/2022/06/07/learn-and-learn/%E4%BA%91%E5%8E%9F%E7%94%9F/k8s%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/</guid>
             <title>k8s集群搭建</title>
-            <link>https://sprenedayf.com/2022/06/07/computer-science/%E4%BA%91%E5%8E%9F%E7%94%9F/k8s%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/</link>
-            <category term="计算机基础" scheme="https://sprenedayf.com/categories/computer-science/" />
-            <category term="云原生" scheme="https://sprenedayf.com/categories/computer-science/%E4%BA%91%E5%8E%9F%E7%94%9F/" />
+            <link>https://sprenedayf.com/2022/06/07/learn-and-learn/%E4%BA%91%E5%8E%9F%E7%94%9F/k8s%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/</link>
+            <category term="学习不止" scheme="https://sprenedayf.com/categories/learn-and-learn/" />
+            <category term="云原生" scheme="https://sprenedayf.com/categories/learn-and-learn/%E4%BA%91%E5%8E%9F%E7%94%9F/" />
             <category term="云原生" scheme="https://sprenedayf.com/tags/%E4%BA%91%E5%8E%9F%E7%94%9F/" />
             <category term="k8s" scheme="https://sprenedayf.com/tags/k8s/" />
             <pubDate>Tue, 07 Jun 2022 10:26:40 +0800</pubDate>
