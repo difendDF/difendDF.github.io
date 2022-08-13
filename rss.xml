@@ -10,11 +10,47 @@
         </author>
         <description>努力学习、生活</description>
         <language>zh-CN</language>
-        <pubDate>Fri, 05 Aug 2022 22:24:53 +0800</pubDate>
-        <lastBuildDate>Fri, 05 Aug 2022 22:24:53 +0800</lastBuildDate>
+        <pubDate>Sat, 13 Aug 2022 13:22:29 +0800</pubDate>
+        <lastBuildDate>Sat, 13 Aug 2022 13:22:29 +0800</lastBuildDate>
         <category term="计算机" />
         <category term="后端" />
         <category term="大数据" />
+        <item>
+            <guid isPermalink="true">https://sprenedayf.com/2022/08/13/learn-and-learn/inter-work/%E5%AE%9E%E4%B9%A0%E7%AC%AC%E4%B9%9D%E5%91%A8%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/</guid>
+            <title>实习第九周技术总结</title>
+            <link>https://sprenedayf.com/2022/08/13/learn-and-learn/inter-work/%E5%AE%9E%E4%B9%A0%E7%AC%AC%E4%B9%9D%E5%91%A8%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/</link>
+            <category term="学习不止" scheme="https://sprenedayf.com/categories/learn-and-learn/" />
+            <category term="实习" scheme="https://sprenedayf.com/categories/learn-and-learn/%E5%AE%9E%E4%B9%A0/" />
+            <category term="npm" scheme="https://sprenedayf.com/tags/npm/" />
+            <pubDate>Sat, 13 Aug 2022 13:22:29 +0800</pubDate>
+            <description><![CDATA[ &lt;h1 id=&#34;前言&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#前言&#34;&gt;#&lt;/a&gt; 前言&lt;/h1&gt;
+&lt;p&gt;因为也算实习了一段时间了，所以可能对于 project 中的一些设计思想和技术也有了大致的了解，然后现在投入精力的东西也一直都是那个，也没有再接触到组里的其他的一些技术栈，收获相对来说可能会少一些吧，但是每周都有收获这件事已经很好啦～刚好之前每次写 blog 真的花了我蛮久时间的，现在可以有更多的时间去休息了～&lt;br /&gt;
+&lt;img data-src=&#34;https://i.imgtg.com/2022/08/13/A2etX.png&#34; alt=&#34;&#34; height=&#34;150px&#34; /&gt;&lt;/p&gt;
+&lt;h1 id=&#34;依赖管理&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#依赖管理&#34;&gt;#&lt;/a&gt; 依赖管理&lt;/h1&gt;
+&lt;p&gt;我们在开发过程中会用到 package.json 这个文件来对项目中的一些依赖进行引入，那么 package.json 中会有 &lt;code&gt;dependencies&lt;/code&gt; ， &lt;code&gt;devDependencies&lt;/code&gt;  和 &lt;code&gt;peerDependencies&lt;/code&gt; 。它们之间会有点点不同&lt;/p&gt;
+&lt;h2 id=&#34;dependencies&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#dependencies&#34;&gt;#&lt;/a&gt; dependencies&lt;/h2&gt;
+&lt;p&gt;这里的依赖是会被最终构建到部署环境的，也就说写到这里面的到时候项目部署投入生产的时候是必须要用到的&lt;/p&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 将会保存到 dependencies 中&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;npm&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;install&lt;/span&gt; packageName --save&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 或者不写 --save 也可以，默认就会到 dependencies 中&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;npm&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;install&lt;/span&gt; packageName&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 再简单一些&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;npm&lt;/span&gt; i&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;h2 id=&#34;devdependencies&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#devdependencies&#34;&gt;#&lt;/a&gt; devDependencies&lt;/h2&gt;
+&lt;p&gt;开发过程中的依赖，比如 &lt;code&gt;eslint&lt;/code&gt; ，不可能线上压缩的代码包含 &lt;code&gt;eslint&lt;/code&gt; ，所以显然他应该放入 &lt;code&gt;devDependencies&lt;/code&gt;&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;figcaption data-lang=&#34;Bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;npm&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;install&lt;/span&gt; eslint --save-dev&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 或者&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;npm&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;install&lt;/span&gt; eslint -D&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;h2 id=&#34;peerdependencies&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#peerdependencies&#34;&gt;#&lt;/a&gt; peerDependencies&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;peerDependencies&lt;/code&gt;  的目的是提示宿主环境去安装满足插件 &lt;code&gt;peerDependencies&lt;/code&gt;  所指定依赖的包，然后在插件 &lt;code&gt;import&lt;/code&gt;  或者 &lt;code&gt;require&lt;/code&gt;  所依赖的包的时候，永远都是引用宿主环境统一安装的 &lt;code&gt;npm&lt;/code&gt;  包，最终解决插件与所依赖包不一致的问题。&lt;/p&gt;
+&lt;p&gt;假设现在有一个  &lt;code&gt;helloWorld&lt;/code&gt;  工程，已经在其  &lt;code&gt;package.json&lt;/code&gt;  的  &lt;code&gt;dependencies&lt;/code&gt;  中声明了  &lt;code&gt;packageA&lt;/code&gt; ，有两个插件  &lt;code&gt;plugin1&lt;/code&gt;  和  &lt;code&gt;plugin2&lt;/code&gt;  他们也依赖  &lt;code&gt;packageA&lt;/code&gt; ，如果在插件中使用  &lt;code&gt;dependencies&lt;/code&gt;  而不是  &lt;code&gt;peerDependencies&lt;/code&gt;  来声明  &lt;code&gt;packageA&lt;/code&gt; ，那么  &lt;code&gt;npm install&lt;/code&gt;  安装完  &lt;code&gt;plugin1&lt;/code&gt;  和  &lt;code&gt;plugin2&lt;/code&gt;  之后的依赖图是这样的：&lt;/p&gt;
+&lt;figure class=&#34;highlight text&#34;&gt;&lt;figcaption data-lang=&#34;text&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;.&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;├── helloWorld&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;│   └── node_modules&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;│       ├── packageA&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;│       ├── plugin1&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;│       │   └── nodule_modules&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;│       │       └── packageA&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;│       └── plugin2&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;9&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;│       │   └── nodule_modules&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;10&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;│       │       └── packageA&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;而 peerDependency 就可以避免类似的核心依赖库被重复下载的问题&lt;br /&gt;
+&lt;span class=&#34;red&#34;&gt; plugin1/package.json&lt;/span&gt;&lt;/p&gt;
+&lt;figure class=&#34;highlight json&#34;&gt;&lt;figcaption data-lang=&#34;JSON&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;  &lt;span class=&#34;token property&#34;&gt;&#34;peerDependencies&#34;&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token property&#34;&gt;&#34;packageA&#34;&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34;1.0.1&#34;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;  &lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;&lt;span class=&#34;red&#34;&gt;plugin2/package.json&lt;/span&gt;&lt;/p&gt;
+&lt;figure class=&#34;highlight json&#34;&gt;&lt;figcaption data-lang=&#34;JSON&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;  &lt;span class=&#34;token property&#34;&gt;&#34;peerDependencies&#34;&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token property&#34;&gt;&#34;packageA&#34;&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34;1.0.1&#34;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;  &lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;&lt;span class=&#34;red&#34;&gt;helloWorld/package.json&lt;/span&gt;&lt;/p&gt;
+&lt;figure class=&#34;highlight json&#34;&gt;&lt;figcaption data-lang=&#34;JSON&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;  &lt;span class=&#34;token property&#34;&gt;&#34;dependencies&#34;&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token property&#34;&gt;&#34;packageA&#34;&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34;1.0.1&#34;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;  &lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;此时执行  &lt;code&gt;npm install&lt;/code&gt;  生成的依赖图就是这样的：&lt;/p&gt;
+&lt;figure class=&#34;highlight text&#34;&gt;&lt;figcaption data-lang=&#34;text&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;.&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;├── helloWorld&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;│   └── node_modules&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;│       ├── packageA&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;│       ├── plugin1&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;│       └── plugin2&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;因此使用 dependencies 声明依赖库有这么几个特点：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;如果用户显式依赖了核心库，则可以忽略各插件的 peerDependency 声明；&lt;/li&gt;
+&lt;li&gt;如果用户没有显式依赖核心库，则按照插件 peerDependencies 中声明的版本将库安装到项目根目录中；&lt;/li&gt;
+&lt;li&gt;当用户依赖的版本、各插件依赖的版本之间不相互兼容，会报错让用户自行修复。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id=&#34;结束语&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#结束语&#34;&gt;#&lt;/a&gt; 结束语&lt;/h1&gt;
+&lt;p&gt;不知道这种周更的 blog 还能坚持多久，感觉这两周的 blog 水了很多，我还是不太喜欢更新水文，要的就是那种干巴巴的硬文好嘛！最近在考虑捡起来之前的开发内容写个总结了，但是也是觉得写 blog 有点费时，看吧～&lt;br /&gt;
+ 可能从下周开始就断更了😂&lt;/p&gt;
+ ]]></description>
+        </item>
         <item>
             <guid isPermalink="true">https://sprenedayf.com/2022/08/05/learn-and-learn/inter-work/%E5%AE%9E%E4%B9%A0%E7%AC%AC%E5%85%AB%E5%91%A8%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/</guid>
             <title>实习第八周技术总结</title>
@@ -1989,92 +2025,6 @@ MergeTree 如何定位压缩数据块并读取数据：&lt;/p&gt;
 现在回头想想，不管是我追星也好，看漫画也好，总是会通过她们来观察自己，也总是希望自己也能像她们那样坚强和勇敢。在心情低落的时候、在走不出来的时候、在遇到难题的时候... 总是会想她们会怎么做呢？会这样自怨自艾吗？会这样放弃吗？会这样抱有遗憾吗？&lt;br /&gt;
 一味地希望能够从别人那里汲取温暖和陪伴，不如我也能够成为那样的存在吧，只要我再努力一点，再坚持一下，一定也能够成为她们那样优秀的人吧。&lt;br /&gt;
 但是人都会累，会希望自己也能够得到理解和支持，就让我自私的从不认识我的你们身上汲取一点力量吧.....&lt;/p&gt;
- ]]></description>
-        </item>
-        <item>
-            <guid isPermalink="true">https://sprenedayf.com/2022/04/19/Java/Kafka%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%97%851/</guid>
-            <title>Kafka学习之旅1</title>
-            <link>https://sprenedayf.com/2022/04/19/Java/Kafka%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%97%851/</link>
-            <category term="Java" scheme="https://sprenedayf.com/categories/Java/" />
-            <category term="中间件" scheme="https://sprenedayf.com/categories/Java/%E4%B8%AD%E9%97%B4%E4%BB%B6/" />
-            <category term="Kafka" scheme="https://sprenedayf.com/categories/Java/%E4%B8%AD%E9%97%B4%E4%BB%B6/Kafka/" />
-            <category term="中间件" scheme="https://sprenedayf.com/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/" />
-            <category term="框架" scheme="https://sprenedayf.com/tags/%E6%A1%86%E6%9E%B6/" />
-            <category term="Kafka" scheme="https://sprenedayf.com/tags/Kafka/" />
-            <pubDate>Tue, 19 Apr 2022 15:38:06 +0800</pubDate>
-            <description><![CDATA[ &lt;h1 id=&#34;消息队列&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#消息队列&#34;&gt;#&lt;/a&gt; 消息队列&lt;/h1&gt;
-&lt;p&gt;kafka 是消息队列中间件，那我们先简单了解下消息队列能干嘛吧&lt;/p&gt;
-&lt;h2 id=&#34;应用场景&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#应用场景&#34;&gt;#&lt;/a&gt; 应用场景&lt;/h2&gt;
-&lt;h3 id=&#34;异步处理&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#异步处理&#34;&gt;#&lt;/a&gt; 异步处理&lt;/h3&gt;
-&lt;p&gt;比如电商网站中，新的用户注册时，需要将用户的信息保存到数据库中，同时还需要额外发送注册的邮件通知、以及短信注册码给用户。但因为发送邮件、发送注册短信需要连接外部的服务器，需要额外等待一段时间，此时，就可以使用消息队列来进行异步处理，从而实现快速响应。&lt;br /&gt;
-&lt;img data-src=&#34;https://tva4.sinaimg.cn/large/006yBBDDly8h1f34y78c0j31l60nu78c.jpg&#34; alt=&#34;&#34; height=&#34;350px&#34; /&gt;&lt;/p&gt;
-&lt;h3 id=&#34;系统解耦&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#系统解耦&#34;&gt;#&lt;/a&gt; 系统解耦&lt;/h3&gt;
-&lt;p&gt;&lt;img data-src=&#34;https://tva1.sinaimg.cn/large/006yBBDDly8h1f35oqmagj31l80pqq96.jpg&#34; alt=&#34;&#34; height=&#34;350px&#34; /&gt;&lt;/p&gt;
-&lt;h3 id=&#34;流量削峰&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#流量削峰&#34;&gt;#&lt;/a&gt; 流量削峰&lt;/h3&gt;
-&lt;p&gt;&lt;img data-src=&#34;https://tva2.sinaimg.cn/large/006yBBDDly8h1f36hvh3ij31i80puafa.jpg&#34; alt=&#34;&#34; height=&#34;350px&#34; /&gt;&lt;/p&gt;
-&lt;h3 id=&#34;日志处理&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#日志处理&#34;&gt;#&lt;/a&gt; 日志处理&lt;/h3&gt;
-&lt;p&gt;&lt;img data-src=&#34;https://tva2.sinaimg.cn/large/006yBBDDly8h1f374ob91j31l00kmmzg.jpg&#34; alt=&#34;&#34; height=&#34;350px&#34; /&gt;&lt;/p&gt;
-&lt;h2 id=&#34;消息队列两种模式&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#消息队列两种模式&#34;&gt;#&lt;/a&gt; 消息队列两种模式&lt;/h2&gt;
-&lt;h3 id=&#34;点对点&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#点对点&#34;&gt;#&lt;/a&gt; 点对点&lt;/h3&gt;
-&lt;p&gt;&lt;img data-src=&#34;https://tva2.sinaimg.cn/large/006yBBDDly8h1f38zfeugj319409cgmf.jpg&#34; alt=&#34;&#34; height=&#34;250px&#34; /&gt;&lt;br /&gt;
-点对点模式特点：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;每个消息只有一个接收者（Consumer）(即一旦被消费，消息就不再在消息队列中)&lt;/li&gt;
-&lt;li&gt;发送者和接收者间没有依赖性，发送者发送消息之后，不管有没有接收者在运行，都不会影响到发送者下次发送消息；&lt;/li&gt;
-&lt;li&gt;接收者在成功接收消息之后需向队列应答成功，以便消息队列删除当前接收的消息；&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;发布订阅&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#发布订阅&#34;&gt;#&lt;/a&gt; 发布订阅&lt;/h3&gt;
-&lt;p&gt;&lt;img data-src=&#34;https://tva1.sinaimg.cn/large/006yBBDDly8h1f3aduxz3j319a0cqq4e.jpg&#34; alt=&#34;&#34; height=&#34;250px&#34; /&gt;&lt;br /&gt;
-发布 / 订阅模式特点：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;每个消息可以有多个订阅者；&lt;/li&gt;
-&lt;li&gt;发布者和订阅者之间有时间上的依赖性。针对某个主题（Topic）的订阅者，它必须创建一个订阅者之后，才能消费发布者的消息。&lt;/li&gt;
-&lt;li&gt;为了消费消息，订阅者需要提前订阅该角色主题，并保持在线运行；&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h1 id=&#34;kafka介绍&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#kafka介绍&#34;&gt;#&lt;/a&gt; kafka 介绍&lt;/h1&gt;
-&lt;p&gt;上面简单说了下消息队列相关的东西，是不是磨拳擦踵想了解下 kafka 了呢&lt;br /&gt;
-&lt;img data-src=&#34;https://tva2.sinaimg.cn/large/006yBBDDly8h1f3j457ndj30c80c8t94.jpg&#34; alt=&#34;&#34; height=&#34;150px&#34; /&gt;&lt;br /&gt;
- Kafka 是由 Apache 软件基金会开发的一个开源流平台，由 Scala 和 Java 编写。&lt;/p&gt;
-&lt;h2 id=&#34;集群结构&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#集群结构&#34;&gt;#&lt;/a&gt; 集群结构&lt;/h2&gt;
-&lt;p&gt;&lt;img data-src=&#34;https://tva2.sinaimg.cn/large/006yBBDDly8h1f5at09uyj31co0u0zmd.jpg&#34; alt=&#34;&#34; height=&#34;450px&#34; /&gt;&lt;br /&gt;
-Kafka 中有些核心概念需要明确一下：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;生产者（Producer）&lt;/strong&gt;：生产者是向 topic 发布新消息的 Kafka 客户端。生产者可以将数据发布到所选择的 topic 中。生产者负责将记录分配到 topic 中的哪一个 partition 中。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;消费者（Consumer）&lt;/strong&gt;：消费者是从 topic 订阅新消息的 Kafka 客户端。消费者通过检查消息的偏移量来区分消息是否已读。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;消息&lt;/strong&gt;：kafka 的数据单元被称为消息，消息由字节数组组成。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Broker&lt;/strong&gt; - 一个独立的 Kafka 服务器被称为 Broker。Broker 接受来自生产者的消息，为消息设置偏移量，并提交消息到磁盘保存；消费者向 Broker 请求消息，Broker 负责返回已提交的消息。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;主题（Topic）&lt;/strong&gt;：kafka 中消息订阅和发送都是基于某个 topic。就比如不同 topic 有 red velvet、twice 等，消费者可以根据自己感兴趣的 topic 来订阅消息，比如我对 red velvet 感兴趣，那么我就订阅该 topic 的消息。生产者会将不同女团的消息放到对应的 topic 中，然后消费者根据自己的订阅就可以只接收该女团的消息。
-&lt;ul&gt;
-&lt;li&gt;不同主题的消息是物理隔离的；&lt;/li&gt;
-&lt;li&gt;同一个主题的消息保存在一个或多个 Broker 上。但用户只需指定消息的 Topic 即可生产或消费数据而不必关心数据存于何处。&lt;/li&gt;
-&lt;li&gt;主题有一个或多个分区。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;分区（Partition）&lt;/strong&gt;：大多数消息系统，同一个 topic 下的消息，存储在一个队列。分区的概念就是把这个队列划分为若干个小队列，每一个小队列就是一个分区。&lt;br /&gt;
-&lt;img data-src=&#34;https://tva3.sinaimg.cn/large/006yBBDDly8h1f5ndo01rj313a0u0mzd.jpg&#34; alt=&#34;&#34; height=&#34;450px&#34; /&gt;&lt;br /&gt;
-无分区时，一个 topic 只有一个消费者在消费这个消息队列。采用分区后，如果有两个分区，最多两个消费者同时消费，消费的速度肯定会更快。也就是说&lt;span class=&#34;red&#34;&gt;分区的设计大大的提升了 kafka 的吞吐量&lt;/span&gt;！！&lt;br /&gt;
-&lt;img data-src=&#34;https://tva3.sinaimg.cn/large/006yBBDDly8h1f5q8dqvmj31h70u0tax.jpg&#34; alt=&#34;&#34; height=&#34;450px&#34; /&gt;&lt;br /&gt;
-结合上图说一下需要注意的地方：
-&lt;ul&gt;
-&lt;li&gt;一个 partition 只能被同组的一个 consumer 消费&lt;/li&gt;
-&lt;li&gt;同一个组里的一个 consumer 可以消费多个 partition&lt;/li&gt;
-&lt;li&gt;消费效率最高的情况是 partition 和 consumer 数量相同。这样确保每个 consumer 专职负责一个 partition。&lt;/li&gt;
-&lt;li&gt;consumer 数量不能大于 partition 数量。由于第一点的限制，当 consumer 多于 partition 时，就会有 consumer 闲置。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;副本（Replica）&lt;/strong&gt;：Kafka 中同一条消息能够被拷贝到多个地方以提供数据冗余。每个分区的数据都会有多份副本，以此来保证 Kafka 的高可用。&lt;br /&gt;
-topic、partition、replica 的关系如下图所示：&lt;br /&gt;
-&lt;img data-src=&#34;https://tva4.sinaimg.cn/large/006yBBDDly8h1f5z60abdj30u007kmxr.jpg&#34; alt=&#34;&#34; height=&#34;300px&#34; /&gt;&lt;br /&gt;
-topic 下会划分多个 partition，每个 partition 都有自己的 replica，其中只有一个是 leader replica，其余的是 follower replica。&lt;br /&gt;
-消息进来的时候会先存入 leader replica，然后从 leader replica 复制到 follower replica。只有复制全部完成时，consumer 才可以消费此条消息。这是为了确保意外发生时，数据可以恢复。consumer 的消费也是从 leader replica 读取的。&lt;br /&gt;
-由此可见，leader replica 做了大量的工作。所以如果不同 partition 的 leader replica 在 kafka 集群的 broker 上分布不均匀，就会造成负载不均衡。kafka 通过轮询算法保证 leader replica 是均匀分布在多个 broker 上。
-&lt;ul&gt;
-&lt;li&gt;Replica 均匀分配在 Broker 上，同一个 partition 的 replica 不会在同一个 borker 上&lt;/li&gt;
-&lt;li&gt;同一个 partition 的 Replica 数量不能多于 broker 数量。多个 replica 为了数据安全，一台 server 存多个 replica 没有意义。server 挂掉，上面的副本都要挂掉。&lt;/li&gt;
-&lt;li&gt;分区的 leader replica 均衡分布在 broker 上。此时集群的负载是均衡的。这就叫做分区平衡&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
  ]]></description>
         </item>
     </channel>
